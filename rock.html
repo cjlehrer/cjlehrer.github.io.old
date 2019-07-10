@@ -12,7 +12,7 @@
 
     <h1 id="finalResult"></h1>
 
-    <button onclick="game()">Play Game</button>
+    <button id="startButton" onclick="game()">Play Game</button>
 
     <script>
         let playerScore = 0;
@@ -72,6 +72,8 @@
                 document.getElementById("theResult").innerHTML = theResult;
                 document.getElementById("playerScore").innerHTML = playerScore;
                 document.getElementById("computerScore").innerHTML = computerScore;
+
+                document.getElementById("startButton").innerHTML = "Play Again";
 
                 if (playerScore == 5 || computerScore == 5) {
                     if (playerScore > computerScore) {
