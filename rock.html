@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<body>
+    <h1>The Computer has Chosen: <span id="computerResult"></span></h1>
+    <h1>You have Chosen: <span id="playerResult"></span></h1>
+    <h1 id="theResult">Good Luck</h1>
+
+    <h2>
+        <h3>Players Score: <span id="playerScore"></span></h3>
+        <h3>Computers Score: <span id="computerScore"></span></h3>
+    </h2>
+
+    <h1 id="finalResult"></h1>
+
+    <button onclick="game()">Play Game</button>
+
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+
+        let computerPlay = function() {
+            min = 1
+            max = 3
+            randNum = Math.floor(Math.random() * (max - min + 1)) + min; 
+            switch(randNum) {
+                case 1:
+                    return "rock";
+                    break;
+                case 2:
+                    return "paper";
+                    break;
+                case 3: 
+                    return "scissors";
+                    break;
+            }
+        }
+
+        let findResult = function(playerSelection,computerSelection) {
+            if (playerSelection == computerSelection) {
+                return "You chose the same thing!  Result is a tie!"
+            } else if (playerSelection == "rock" && computerSelection == "scissors" 
+                    || playerSelection == "scissors" && computerSelection == "paper") {
+                playerScore = playerScore + 1;
+                return "You win, " + playerSelection + " beats " + computerSelection + "!";
+            } else {
+                computerScore = computerScore + 1;
+                return "Sorry, " + computerSelection + " beats " + playerSelection + "! You lose!";
+            }
+
+        }
+       
+        function game() {
+                let computerSelection = computerPlay();
+                let playerSelection;
+
+                function playerSelect(){
+                    playerSelection = prompt("Chose Rock, Paper, or Scissors!")
+                    playerSelection = playerSelection.toLowerCase();
+
+                    if (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors")  {
+                        alert(playerSelection + " is not a valid selection.  Please choose Rock, Paper, or Scissors");
+                        playerSelect();
+                    }
+                }
+
+                playerSelect();
+
+                let theResult = findResult(playerSelection, computerSelection);
+                
+                document.getElementById("computerResult").innerHTML = computerSelection;
+                document.getElementById("playerResult").innerHTML = playerSelection;
+                document.getElementById("theResult").innerHTML = theResult;
+                document.getElementById("playerScore").innerHTML = playerScore;
+                document.getElementById("computerScore").innerHTML = computerScore;
+
+                if (playerScore == 5 || computerScore == 5) {
+                    if (playerScore > computerScore) {
+                        alert("You are the big winner!");
+                    } else {
+                        alert("Sorry, you lose.  Better luck next time!");
+                    }
+                    location.reload();
+                }
+            }
+
+
+
+    </script>
+    </body>
+</html>
