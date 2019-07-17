@@ -1,20 +1,31 @@
 <!DOCTYPE html>
+<head>
 
+</head>
 <body>
-    <h1>The Computer has Chosen: <span id="computerResult"></span></h1>
-    <h1>You have Chosen: <span id="playerResult"></span></h1>
-    <h1 id="theResult">Good Luck</h1>
+    <div id="content">
+        <h1>The Computer has Chosen: <span id="computerResult"></span></h1>
+        <h1>You have Chosen: <span id="playerResult"></span></h1>
+        <h1 id="theResult">Good Luck</h1>
 
-    <h2>
-        <h3>Players Score: <span id="playerScore"></span></h3>
-        <h3>Computers Score: <span id="computerScore"></span></h3>
-    </h2>
+        <h2>
+            <h3>Players Score: <span id="playerScore"></span></h3>
+            <h3>Computers Score: <span id="computerScore"></span></h3>
+        </h2>
 
-    <h1 id="finalResult"></h1>
 
-    <button id="startButton" onclick="game()">Play Game</button>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
 
+    <h1 id="finalResult" display="none">
+        
+        
+    </h1>    
+    <button id="restart" >Restart</button>
     <script>
+
         let playerScore = 0;
         let computerScore = 0;
 
@@ -49,22 +60,9 @@
 
         }
        
-        function game() {
+        function game(playerSelection) {
                 let computerSelection = computerPlay();
-                let playerSelection;
-
-                function playerSelect(){
-                    playerSelection = prompt("Chose Rock, Paper, or Scissors!")
-                    playerSelection = playerSelection.toLowerCase();
-
-                    if (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors")  {
-                        alert(playerSelection + " is not a valid selection.  Please choose Rock, Paper, or Scissors");
-                        playerSelect();
-                    }
-                }
-
-                playerSelect();
-
+                
                 let theResult = findResult(playerSelection, computerSelection);
                 
                 document.getElementById("computerResult").innerHTML = computerSelection;
@@ -73,20 +71,34 @@
                 document.getElementById("playerScore").innerHTML = playerScore;
                 document.getElementById("computerScore").innerHTML = computerScore;
 
-                document.getElementById("startButton").innerHTML = "Play Again";
-
                 if (playerScore == 5 || computerScore == 5) {
                     if (playerScore > computerScore) {
-                        alert("You are the big winner!");
+                        document.getElementById("content").style.display="none";
+                        document.getElementById('finalResult').style.display="block";
+                        document.getElementById('finalResult').innerHTML="YOU ARE THE BIG WINNER!"
                     } else {
-                        alert("Sorry, you lose.  Better luck next time!");
+                        document.getElementById("content").style.display="none";
+                        document.getElementById('finalResult').style.display="block";
+                        document.getElementById('finalResult').innerHTML="Sorry, you lose!  Better luck next time."
                     }
-                    location.reload();
+                    
                 }
             }
 
 
-
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                console.log(button.id);
+                if (button.id == "restart") {
+                    location.reload();
+                } else {
+                    game(button.id);
+                    console.log("false");
+                }
+                
+            });
+        });
     </script>
     </body>
 </html>
